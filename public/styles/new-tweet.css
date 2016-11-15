@@ -24,3 +24,7 @@ form > textarea {
   line-height: 2.5em;
   padding-right: 10px;
 }
+
+.counter.warning-text {
+  color: red;
+}
