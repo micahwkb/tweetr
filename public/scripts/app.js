@@ -1,6 +1,6 @@
 'use strict';
 
-/*const data = [
+const data = [
   {
     "user": {
       "name": "Newton",
@@ -45,10 +45,11 @@
     },
     "created_at": 1461113796368
   }
-];*/
+];
+
 const renderTweets = (tweets) => {
   const $el = $('#tweets-container');
-
+  $el.append("");
   const tweets_html = tweets.map((tweet) => {
     return createTweetElement(tweet);
   });
@@ -84,7 +85,24 @@ const createTweetElement = (tweet) => {
           </article>`;
 };
 
+function submitTweet(tweetData) {
+
+  $.ajax('/tweets', {
+    method: 'POST',
+    data: tweetData
+  }).done((tweetData) => {
+    renderTweets();
+  });
+
+};
 
 $(document).ready(() => {
-  renderTweets([]);
+
+  renderTweets(data);
+
+  $('.new-tweet form').on('submit', (event) => {
+    event.preventDefault();
+    submitTweet($('.new-tweet form').serialize());
+  });
+
 });
