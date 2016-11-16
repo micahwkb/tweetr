@@ -1,6 +1,4 @@
-'use strict';
-
-/*const data = [
+[
   {
     "user": {
       "name": "Newton",
@@ -12,7 +10,7 @@
       "handle": "@SirIsaac"
     },
     "content": {
-      "text": "<script>alert('I feel safe')</script>"
+      "text": "If I have seen further it is by standing on the shoulders of giants"
     },
     "created_at": 1461116232227
   },
@@ -45,46 +43,4 @@
     },
     "created_at": 1461113796368
   }
-];*/
-const renderTweets = (tweets) => {
-  const $el = $('#tweets-container');
-
-  const tweets_html = tweets.map((tweet) => {
-    return createTweetElement(tweet);
-  });
-  $el.append(tweets_html)
-};
-
-const escape = (str) => {
-  var div = document.createElement('div');
-  div.appendChild(document.createTextNode(str));
-  return div.innerHTML;
-};
-
-const createTweetElement = (tweet) => {
-  const name = escape(tweet.user.name);
-  const avatar = escape(tweet.user.avatars.regular);
-  const handle = escape(tweet.user.handle);
-  const content = escape(tweet.content.text);
-  const datestamp = escape(tweet.created_at);
-
-  return `<article>
-            <header>
-              <img src="${avatar}">
-              <h2>${name}</h2>
-              <h5>${handle}</h5>
-            </header>
-            <p>${content}</p>
-            <footer>
-              <span>${datestamp}</span>
-              <i class="fa fa-heart fa-lg"></i>
-              <i class="fa fa-retweet fa-lg"></i>
-              <i class="fa fa-flag fa-lg"></i>
-            </footer>
-          </article>`;
-};
-
-
-$(document).ready(() => {
-  renderTweets([]);
-});
+]

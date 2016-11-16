@@ -6,7 +6,7 @@ $(document).on('ready', function() {
   // adjust character counter with input
   $textarea.on('keyup', function(event) {
     var tweetLength = $(this).val().length;
-    $counter.html(140 - tweetLength);
+    $counter.text(140 - tweetLength);
     // colorize when tweetLength exceeds char. limit
     if (tweetLength > 140) {
       $counter.addClass("warning-text");

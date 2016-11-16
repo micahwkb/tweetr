@@ -1,8 +1,10 @@
 "use strict";
 
-const User    = require("../lib/user-helper")
+const User    = require("../lib/user-helper");
 const express = require('express');
 const tweets  = express.Router();
+
+// const tempData = require('./tweets.temp.json');
 
 module.exports = function(db) {
 
@@ -11,7 +13,7 @@ module.exports = function(db) {
     // simulate delay
     setTimeout(() => {
       return res.json(tweets);
-    }, 300);
+    }, 300)
   });
 
   tweets.post("/", function(req, res) {
