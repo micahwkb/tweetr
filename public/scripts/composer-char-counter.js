@@ -9,7 +9,7 @@ $(document).on('ready', function() {
     $counter.text(140 - tweetLength);
     // colorize when tweetLength exceeds char. limit
     if (tweetLength > 140) {
-      $counter.addClass("warning-text");
+      $counter.toggleClass("warning-text");
     // return to black when tweetLength within limit
     } else {
       $counter.removeClass("warning-text");

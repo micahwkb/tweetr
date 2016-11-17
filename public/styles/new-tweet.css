@@ -26,6 +26,13 @@ form > textarea {
   padding-bottom: 0px;
 }
 
-.counter.warning-text {
+.warning-text {
   color: red;
+}
+h4.warning-text {
+  text-align: center;
+  font-weight: 300;
+  font-size: 1.5em;
+  margin-bottom: 0px;
+  margin-top: 5px
 }

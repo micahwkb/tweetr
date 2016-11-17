@@ -20,48 +20,70 @@ const createTweetElement = (tweet) => {
   const content = escape(tweet.content.text);
   const datestamp = escape(tweet.created_at);
 
-  return `<article>
-            <header>
-              <img src="${avatar}">
-              <h2>${name}</h2>
-              <h5>${handle}</h5>
-            </header>
-            <p>${content}</p>
-            <footer>
-              <span>${datestamp}</span>
-              <i class="fa fa-heart fa-lg"></i>
-              <i class="fa fa-retweet fa-lg"></i>
-              <i class="fa fa-flag fa-lg"></i>
-            </footer>
-          </article>`;
+  return `
+    <article>
+      <header>
+        <img src="${avatar}">
+        <h2>${name}</h2>
+        <h5>${handle}</h5>
+      </header>
+      <p>${content}</p>
+      <footer>
+        <span>${datestamp}</span>
+        <i class="fa fa-heart fa-lg"></i>
+        <i class="fa fa-retweet fa-lg"></i>
+        <i class="fa fa-flag fa-lg"></i>
+      </footer>
+    </article>
+  `;
 };
 
 const submitTweet = (tweet) => {
+  if (tweet.length > 140) {
+    $('<h4/>', {
+      class: 'warning-text',
+      text: `Please keep it under 140 characters ↑`
+    }).appendTo('.new-tweet');
 
-  $.ajax('/tweets', {
-    method: 'POST',
-    data: tweet
-  }).done((tweet) => {
-    loadTweets();
+  } else if (!tweet) {
+    $('<h4/>', {
+      class: 'warning-text',
+      text: 'Your tweet is empty 😿'
+    }).appendTo('.new-tweet');
+
+  } else {
+    $.post('/tweets', `text=${tweet}`, loadTweets());
+  }
+};
+
+const reverseSort = (data, sortProp) => {
+  return data.sort((a, b) => {
+    return b[sortProp] - a[sortProp];
   });
-
 };
 
 const loadTweets = () => {
-
-  $.getJSON('/tweets', function(dbData) {
-      $('#tweets-container').html(renderTweets(dbData));
+  $.getJSON('/tweets', (dbData) => {
+    const newestFirst = reverseSort(dbData, 'created_at');
+    $('#tweets-container').html(renderTweets(newestFirst));
   });
-
 };
 
 $(document).ready(() => {
 
-  // loadTweets();
+  loadTweets();
 
+  // clear any warnings for 'new tweet' field
+  $('.new-tweet textarea').on('focus', (event) => {
+    $('section.new-tweet h4').remove();
+  });
+
+  // 'new tweet' form submission
   $('.new-tweet form').on('submit', (event) => {
+
+    const text = $('textarea').val();
+    submitTweet(text);
     event.preventDefault();
-    submitTweet($('.new-tweet form').serialize());
   });
 
 });
