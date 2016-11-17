@@ -53,6 +53,7 @@ const submitTweet = (tweet) => {
 
   } else {
     $.post('/tweets', `text=${tweet}`, loadTweets());
+    $('textarea').val('');
   }
 };
 
@@ -69,25 +70,44 @@ const loadTweets = () => {
   });
 };
 
-$(document).ready(() => {
+const toggleCompose = () => {
+  const $newTweet = $('section.new-tweet');
+  const $composeButton = $('button.compose-btn');
+  $newTweet.hide();
+  $composeButton.on ('click', () => {
+    $newTweet.show();
+    $('textarea').focus();
+    $composeButton.on ('click', () => {
+      toggleCompose();
+    });
+  });
+};
 
-  loadTweets();
-
-  // clear any warnings for tweet form
-  $('.new-tweet textarea').on('focus', (event) => {
+const toggleWarning = () => {
+  $('.new-tweet textarea').on('focus', () => {
     $('section.new-tweet h4').remove();
   });
+};
 
-  // watch for tweet submission
-  $('.new-tweet form').on('submit', (event) => {
-
+const tweetSubmission = () => {
+  $('.new-tweet form').on('submit', () => {
     const text = $('textarea').val();
     submitTweet(text);
     event.preventDefault();
   });
+};
+
+$(document).ready(() => {
+  // load existing tweets
+  loadTweets();
+
   // watch for Compose button click
-  $('.compose-button').on('click', (event) => {
-    $('section.new-tweet').toggleClass('hidden');
-  });
+  toggleCompose();
+
+  // clear any warnings for tweet form
+  toggleWarning();
+
+  // watch for tweet submission
+  tweetSubmission();
 
 });

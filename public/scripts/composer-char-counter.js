@@ -1,4 +1,4 @@
-$(document).on('ready', function() {
+$(document).on('ready', () => {
 
   var $textarea = $('.new-tweet textarea');
   var $counter = $('span.counter');
@@ -8,12 +8,7 @@ $(document).on('ready', function() {
     var tweetLength = $(this).val().length;
     $counter.text(140 - tweetLength);
     // colorize when tweetLength exceeds char. limit
-    if (tweetLength > 140) {
-      $counter.toggleClass("warning-text");
-    // return to black when tweetLength within limit
-    } else {
-      $counter.removeClass("warning-text");
-    }
+    $counter.toggleClass('warning-text', (tweetLength > 140));
   });
   // update counter while 'Backspace' held
   $textarea.on('keydown', function(event) {

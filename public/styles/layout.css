@@ -27,5 +27,9 @@ body {
   margin: auto;
   background-color: white;
 }
+
+.hidden {
+  visibility: hidden;
+}
 /*
  * Additional CSS can be defined below or in other CSS files, as per instructions
