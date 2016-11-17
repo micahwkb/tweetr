@@ -13,12 +13,30 @@ const escape = (str) => {
   return div.innerHTML;
 };
 
+const timeConverter = (UNIX_timestamp) => {
+  const a = new Date(UNIX_timestamp);
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const year = a.getFullYear();
+  const month = months[a.getMonth()];
+  const date = a.getDate();
+  let hour = a.getHours();
+  let ampm = 'AM';
+  if (hour > 12) {
+    hour -= 12;
+    ampm = 'PM';
+  }
+  const min = a.getMinutes();
+  const sec = a.getSeconds();
+  const time = `${month} ${date} ${year} - ${hour}:${min}:${sec} ${ampm}`;
+  return time;
+};
+
 const createTweetElement = (tweet) => {
   const name = escape(tweet.user.name);
   const avatar = escape(tweet.user.avatars.regular);
   const handle = escape(tweet.user.handle);
   const content = escape(tweet.content.text);
-  const datestamp = new Date(tweet.created_at);
+  const datestamp = timeConverter(tweet.created_at);
 
   return `
     <article>
