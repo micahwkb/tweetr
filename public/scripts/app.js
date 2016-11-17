@@ -73,17 +73,21 @@ $(document).ready(() => {
 
   loadTweets();
 
-  // clear any warnings for 'new tweet' field
+  // clear any warnings for tweet form
   $('.new-tweet textarea').on('focus', (event) => {
     $('section.new-tweet h4').remove();
   });
 
-  // 'new tweet' form submission
+  // watch for tweet submission
   $('.new-tweet form').on('submit', (event) => {
 
     const text = $('textarea').val();
     submitTweet(text);
     event.preventDefault();
+  });
+  // watch for Compose button click
+  $('.compose-button').on('click', (event) => {
+    $('section.new-tweet').toggleClass('hidden');
   });
 
 });
