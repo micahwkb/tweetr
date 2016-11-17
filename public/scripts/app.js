@@ -54,6 +54,8 @@ const submitTweet = (tweet) => {
   } else {
     $.post('/tweets', `text=${tweet}`, loadTweets());
     $('textarea').val('');
+    $('span.counter').html('140');
+    $('textarea').focus();
   }
 };
 
@@ -73,6 +75,7 @@ const loadTweets = () => {
 const toggleCompose = () => {
   const $newTweet = $('section.new-tweet');
   const $composeButton = $('button.compose-btn');
+
   $newTweet.hide();
   $composeButton.on ('click', () => {
     $newTweet.show();
