@@ -18,7 +18,7 @@ const createTweetElement = (tweet) => {
   const avatar = escape(tweet.user.avatars.regular);
   const handle = escape(tweet.user.handle);
   const content = escape(tweet.content.text);
-  const datestamp = escape(tweet.created_at);
+  const datestamp = new Date(tweet.created_at);
 
   return `
     <article>
@@ -39,6 +39,8 @@ const createTweetElement = (tweet) => {
 };
 
 const submitTweet = (tweet) => {
+  $('h4.warning-text').empty();
+
   if (tweet.length > 140) {
     $('<h4/>', {
       class: 'warning-text',
@@ -75,18 +77,13 @@ const loadTweets = () => {
 const toggleCompose = () => {
   const $newTweet = $('section.new-tweet');
   const $composeButton = $('button.compose-btn');
-
-  $newTweet.hide();
-  $composeButton.on ('click', () => {
-    $newTweet.show();
-    $('textarea').focus();
-    $composeButton.on ('click', () => {
-      toggleCompose();
-    });
-  });
+  $composeButton.click(() => {
+    $newTweet.slideToggle('fast');
+    $('.new-tweet textarea').focus();
+  })
 };
 
-const toggleWarning = () => {
+const clearTweetValidationError = () => {
   $('.new-tweet textarea').on('focus', () => {
     $('section.new-tweet h4').remove();
   });
@@ -101,14 +98,18 @@ const tweetSubmission = () => {
 };
 
 $(document).ready(() => {
+
   // load existing tweets
   loadTweets();
+
+  // initially hide compose field
+  $('section.new-tweet').hide()
 
   // watch for Compose button click
   toggleCompose();
 
   // clear any warnings for tweet form
-  toggleWarning();
+  clearTweetValidationError();
 
   // watch for tweet submission
   tweetSubmission();
