@@ -5,11 +5,26 @@
 const PORT          = 8080;
 const express       = require("express");
 const bodyParser    = require("body-parser");
+const sass          = require("node-sass");
 const app           = express();
+const fs            = require("fs");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
+sass.render({
+  file: "./sass/style.scss",
+  outputStyle: "compressed",
+  outFile: "./public/style.css"
+}, (err, data) => {
+  if(!err) {
+    fs.writeFile("./public/style.css", data.css, (err) => {
+      if(!err) {
+        console.log("Successfully compiled SCSS")
+      }
+    });
+  }
+});
 // The in-memory database of tweets. It's a basic object with an array in it.
 // const db = require("./lib/in-memory-db");
 const MongoClient = require("mongodb").MongoClient;
