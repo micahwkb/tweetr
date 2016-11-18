@@ -1,13 +1,6 @@
-'use strict';
+"use strict";
 
-<<<<<<< HEAD
-const PORT        = 8080;
-const express     = require('express');
-const bodyParser  = require('body-parser');
-const app         = express();
-=======
 // Basic express setup:
->>>>>>> acd2afbf62b0751111ff66495da0f8018c18ab32
 
 const PORT          = 8080;
 const express       = require("express");
@@ -15,13 +8,8 @@ const bodyParser    = require("body-parser");
 const app           = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public'));
+app.use(express.static("public"));
 
-<<<<<<< HEAD
-db.connect((dbInstance) => {
-    app.use('/tweets', tweetsApi(dbInstance));
-});
-=======
 // The in-memory database of tweets. It's a basic object with an array in it.
 const db = require("./lib/in-memory-db");
 
@@ -40,8 +28,7 @@ const tweetsRoutes = require("./routes/tweets")(DataHelpers);
 
 // Mount the tweets routes at the "/tweets" path prefix:
 app.use("/tweets", tweetsRoutes);
->>>>>>> acd2afbf62b0751111ff66495da0f8018c18ab32
 
 app.listen(PORT, () => {
-    console.log('Example app listening on port ' + PORT);
+  console.log("Example app listening on port " + PORT);
 });
