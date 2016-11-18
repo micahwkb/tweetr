@@ -80,13 +80,13 @@ const submitTweet = function(tweet) {
 };
 
 const reverseSort = function(data, sortProp) {
-  return data.sort((a, b) => {
+  return data.sort(function(a, b) {
     return b[sortProp] - a[sortProp];
   });
 };
 
 const loadTweets = function() {
-  $.getJSON('/tweets', (dbData) => {
+  $.getJSON('/tweets', function(dbData) {
     const sortedDb = reverseSort(dbData, 'created_at');
     $('#tweets-container').html(renderTweets(sortedDb));
   });
@@ -95,27 +95,27 @@ const loadTweets = function() {
 const toggleCompose = function() {
   const $newTweet = $('section.new-tweet');
   const $composeButton = $('button.compose-btn');
-  $composeButton.click(() => {
+  $composeButton.click(function() {
     $newTweet.slideToggle('fast');
     $('.new-tweet textarea').focus();
   })
 };
 
 const clearTweetValidationError = function() {
-  $('.new-tweet textarea').on('focus', () => {
+  $('.new-tweet textarea').on('focus', function() {
     $('section.new-tweet h4').remove();
   });
 };
 
 const tweetSubmission = function() {
-  $('.new-tweet form').on('submit', () => {
+  $('.new-tweet form').on('submit', function() {
     const text = $('textarea').val();
     submitTweet(text);
     event.preventDefault();
   });
 };
 
-$(document).ready(() => {
+$(document).ready(function() {
 
   // load existing tweets
   loadTweets();

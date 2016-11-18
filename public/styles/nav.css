@@ -21,6 +21,7 @@
   float: left;
 }
 .compose-btn {
+  transition: all 0.3s ease;
   opacity: .9;
   box-sizing: border-box;
   border: 1px solid black;
@@ -36,6 +37,7 @@
   margin-right: 50px;
 }
 .compose-btn:hover {
+  transition: all 0.3s ease;
   opacity: 1;
   color: black;
 }
