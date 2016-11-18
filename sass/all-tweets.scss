@@ -7,8 +7,7 @@
     margin: auto;
     margin-top: 20px;
     box-sizing: border-box;
-    width: 60%;
-    max-width: 450px;
+    width: 400px;
     background-color: #eee;
     border: 1px solid lightgray;
     @include border-radius(5px);
@@ -44,7 +43,8 @@
     border-radius: 5px;
     margin: 10px;
   }
-  img, h2 {
+  img {
+    @extend h2;
     float: left;
   }
   p {
@@ -55,7 +55,8 @@
     padding-bottom: 20px;
     overflow-wrap: break-word;
   }
-  p, footer {
+  p {
+    @extend footer;
     margin-bottom: 0px;
     background-color: white;
   }
@@ -70,6 +71,11 @@
       visibility: hidden;
       padding-left: 8px;
       color: #57BBA9;
+    }
+  }
+  @media (max-width:400px) {
+    article {
+      width: 90%;
     }
   }
 }

@@ -23,7 +23,7 @@ body {
   font-family: Roboto Condensed, sans-serif;
 }
 .container {
-  padding-top: 100px;
+  padding-top: 80px;
   width: 80%;
   margin: auto;
   background-color: white;
@@ -31,4 +31,10 @@ body {
 
 .hidden {
   visibility: hidden;
+}
+
+@media (max-width:600px) {
+  .container {
+    width: 100%;
+  }
 }
