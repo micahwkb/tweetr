@@ -15,15 +15,15 @@ app.use(express.static("public"));
 sass.render({
   file: "./sass/style.scss",
   outputStyle: "compressed",
-  outFile: "./public/style.css"
+  outFile: "./public/styles/style.css"
 }, (err, data) => {
   if(!err) {
     fs.writeFile("./public/style.css", data.css, (err) => {
       if(!err) {
-        console.log("Successfully compiled SCSS")
-      }
+        console.log("Successfully compiled SCSS");
+      } else console.log(err);
     });
-  }
+  } else console.log(err);
 });
 // The in-memory database of tweets. It's a basic object with an array in it.
 // const db = require("./lib/in-memory-db");
