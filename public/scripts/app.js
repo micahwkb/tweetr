@@ -1,19 +1,19 @@
 'use strict';
 
-const renderTweets = (tweets) => {
-  const tweets_html = tweets.map((tweet) => {
+const renderTweets = function(tweets) {
+  const tweets_html = tweets.map(function(tweet) {
     return createTweetElement(tweet);
   });
   return tweets_html;
 };
 
-const escape = (str) => {
+const escape = function(str) {
   var div = document.createElement('div');
   div.appendChild(document.createTextNode(str));
   return div.innerHTML;
 };
 
-const timeConverter = (UNIX_timestamp) => {
+const timeConverter = function(UNIX_timestamp) {
   const a = new Date(UNIX_timestamp);
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const year = a.getFullYear();
@@ -31,7 +31,7 @@ const timeConverter = (UNIX_timestamp) => {
   return time;
 };
 
-const createTweetElement = (tweet) => {
+const createTweetElement = function(tweet) {
   const name = escape(tweet.user.name);
   const avatar = escape(tweet.user.avatars.regular);
   const handle = escape(tweet.user.handle);
@@ -56,7 +56,7 @@ const createTweetElement = (tweet) => {
   `;
 };
 
-const submitTweet = (tweet) => {
+const submitTweet = function(tweet) {
   $('h4.warning-text').empty();
 
   if (tweet.length > 140) {
@@ -79,20 +79,20 @@ const submitTweet = (tweet) => {
   }
 };
 
-const reverseSort = (data, sortProp) => {
+const reverseSort = function(data, sortProp) {
   return data.sort((a, b) => {
     return b[sortProp] - a[sortProp];
   });
 };
 
-const loadTweets = () => {
+const loadTweets = function() {
   $.getJSON('/tweets', (dbData) => {
-    const newestFirst = reverseSort(dbData, 'created_at');
-    $('#tweets-container').html(renderTweets(newestFirst));
+    const sortedDb = reverseSort(dbData, 'created_at');
+    $('#tweets-container').html(renderTweets(sortedDb));
   });
 };
 
-const toggleCompose = () => {
+const toggleCompose = function() {
   const $newTweet = $('section.new-tweet');
   const $composeButton = $('button.compose-btn');
   $composeButton.click(() => {
@@ -101,13 +101,13 @@ const toggleCompose = () => {
   })
 };
 
-const clearTweetValidationError = () => {
+const clearTweetValidationError = function() {
   $('.new-tweet textarea').on('focus', () => {
     $('section.new-tweet h4').remove();
   });
 };
 
-const tweetSubmission = () => {
+const tweetSubmission = function() {
   $('.new-tweet form').on('submit', () => {
     const text = $('textarea').val();
     submitTweet(text);
