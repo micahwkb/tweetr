@@ -15,7 +15,6 @@ app.use(express.static("public"));
 sass.render({
   file: "./sass/style.scss",
   outputStyle: "compressed",
-  outFile: "./public/styles/style.css"
 }, (err, data) => {
   if(!err) {
     fs.writeFile("./public/style.css", data.css, (err) => {

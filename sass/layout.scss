@@ -20,18 +20,15 @@ body {
   margin: 0;
   color: #244751;
   background-color: #eee;
-  font-family: Roboto Condensed, sans-serif
+  font-family: Roboto Condensed, sans-serif;
 }
 .container {
   padding-top: 100px;
-  width: 450px;
+  width: 80%;
   margin: auto;
-  background-color: white
+  background-color: white;
 }
 
 .hidden {
   visibility: hidden;
 }
-/*
- * Additional CSS can be defined below or in other CSS files, as per instructions
-*/
