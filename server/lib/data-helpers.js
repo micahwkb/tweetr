@@ -12,7 +12,9 @@ module.exports = function makeDataHelpers(db) {
       db.collection("tweets").find().toArray(callback);
     },
     addLike: function(callback) {
-      console.log("hit addLike fn");
+      db.collection("tweets").updateOne(
+        { "_id": ObjectId("582f533a4a04102238bdfb70") },
+        { "likes": "1" });
     }
 
   };

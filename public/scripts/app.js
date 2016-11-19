@@ -37,12 +37,13 @@ const timeConverter = function(UNIX_timestamp) {
 
 const createTweetElement = function(tweet) {
   const name = escape(tweet.user.name);
+  const likes = tweet.likes;
   const avatar = escape(tweet.user.avatars.regular);
   const handle = escape(tweet.user.handle);
   const content = escape(tweet.content.text);
   const datestamp = timeConverter(tweet.created_at);
   const databaseId = tweet._id;
-
+  console.log(likes);
   return `
     <article data-tweetr-id="${databaseId}">
       <header>
@@ -53,9 +54,11 @@ const createTweetElement = function(tweet) {
       <p>${content}</p>
       <footer>
         <span>${datestamp}</span>
-        <i class="fa fa-heart fa-lg"></i>
+        <i class="fa fa-heart fa-lg">
+          <span>${likes || ""}</span></i>
         <i class="fa fa-retweet fa-lg"></i>
         <i class="fa fa-flag fa-lg"></i>
+
       </footer>
     </article>
   `;
@@ -122,11 +125,19 @@ const tweetSubmission = function() {
 
 const toggleLike = function(event) {
   const $heart = $('i.fa-heart');
+  let likeCount;
   $('#tweets-container').on('click', '.fa-heart', function() {
     $(this).toggleClass('liked');
     const $articleId = $(this).closest('article').data('tweetr-id');
-
+    if ($(this).hasClass('liked')) {
+      likeCount = 1;
+      console.log("liked!");
+    } else {
+      likeCount = -1;
+      console.log("unliked!");
+    }
   });
+  $.post('/likes', (likeCount), loadTweets());
 };
 
 $(document).ready(function() {
