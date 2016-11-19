@@ -41,9 +41,10 @@ const createTweetElement = function(tweet) {
   const handle = escape(tweet.user.handle);
   const content = escape(tweet.content.text);
   const datestamp = timeConverter(tweet.created_at);
+  const databaseId = tweet._id;
 
   return `
-    <article>
+    <article data-tweetr-id="${databaseId}">
       <header>
         <img src="${avatar}">
         <h2>${name}</h2>
@@ -123,7 +124,8 @@ const toggleLike = function(event) {
   const $heart = $('i.fa-heart');
   $('#tweets-container').on('click', '.fa-heart', function() {
     $(this).toggleClass('liked');
-    // (event.target).addClass('liked');
+    const $articleId = $(this).closest('article').data('tweetr-id');
+
   });
 };
 
