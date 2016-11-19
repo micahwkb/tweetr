@@ -47,6 +47,9 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
     console.log("Example app listening on port " + PORT);
   });
 
+/*  DataHelpers.addLike("582f533a4a04102238bdfb70", 0,function(err, items) {
+    console.log(items)
+  });*/
 
 });
 // The `data-helpers` module provides an interface to the database of tweets.

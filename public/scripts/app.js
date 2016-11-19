@@ -43,7 +43,8 @@ const createTweetElement = function(tweet) {
   const content = escape(tweet.content.text);
   const datestamp = timeConverter(tweet.created_at);
   const databaseId = tweet._id;
-  console.log(likes);
+  // console.log(likes);
+
   return `
     <article data-tweetr-id="${databaseId}">
       <header>
@@ -137,7 +138,7 @@ const toggleLike = function(event) {
       console.log("unliked!");
     }
   });
-  $.post('/likes', (likeCount), loadTweets());
+  $.post('/likes', likeCount, loadTweets());
 };
 
 $(document).ready(function() {
