@@ -25,8 +25,12 @@ const timeConverter = function(UNIX_timestamp) {
     hour -= 12;
     ampm = 'PM';
   }
-  const min = a.getMinutes();
-  const sec = a.getSeconds();
+  let min = a.getMinutes();
+  if (min < 10) min = `0${min}`
+
+  let sec = a.getSeconds()
+  if (sec < 10) sec = `0${sec}`
+
   const time = `${month} ${date} ${year} - ${hour}:${min}:${sec} ${ampm}`;
   return time;
 };
@@ -115,6 +119,14 @@ const tweetSubmission = function() {
   });
 };
 
+const toggleLike = function(event) {
+  const $heart = $('i.fa-heart');
+  $('#tweets-container').on('click', '.fa-heart', function() {
+    $(this).toggleClass('liked');
+    // (event.target).addClass('liked');
+  });
+};
+
 $(document).ready(function() {
 
   // load existing tweets
@@ -132,4 +144,6 @@ $(document).ready(function() {
   // watch for tweet submission
   tweetSubmission();
 
+  // watch for likes
+  toggleLike();
 });
