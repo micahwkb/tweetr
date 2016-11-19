@@ -39,6 +39,10 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
 
   const DataHelpers = require("./lib/data-helpers.js")(db);
 
+  DataHelpers.addLike("582fc4206fbaf04a3ed1be57", 0, function(event) {
+    console.log(event);
+  })
+
   const tweetsRoutes = require("./routes/tweets")(DataHelpers);
 
   app.use("/tweets", tweetsRoutes);
