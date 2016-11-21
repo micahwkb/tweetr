@@ -13,6 +13,28 @@ const escape = function(str) {
   return div.innerHTML;
 };
 
+const timeSince = function(timestamp) {
+  const nowTime = Date.now();
+  const minSince = (nowTime - timestamp) / (1000 * 60);
+  let timeStr;
+  if (minSince < 1) {
+    timeStr = "just now";
+  } else if (minSince >= 1 && minSince < 2){
+    timeStr = `about a minute ago`;
+  } else if (minSince >= 2 && minSince < 120) {
+    timeStr = `${Number.parseInt(minSince)} minutes ago`;
+  } else if (minSince >= 120 && minSince < 1440) {
+    timeStr = `${Number.parseInt(minSince / 60)} hours ago`;
+  } else if (minSince >= 1440 && minSince < 2880) {
+    timeStr = "yesterday";
+  } else /*if (minSince >= 2880 && minSince < 10080)*/ {
+    timeStr = `${Number.parseInt(minSince / (60 * 24))} days ago`;
+  } /*else {
+    timeStr = `${Number.parseInt(minSince / (60 * 24 * 7))} weeks ago`;
+  }*/
+  return timeStr;
+}
+
 const timeConverter = function(UNIX_timestamp) {
   const a = new Date(UNIX_timestamp);
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -43,7 +65,7 @@ const createTweetElement = function(tweet) {
   const content = escape(tweet.content.text);
   const datestamp = timeConverter(tweet.created_at);
   const databaseId = tweet._id;
-  // console.log(likes);
+  const elapsedTime = timeSince(tweet.created_at);
 
   return `
     <article data-tweetr-id="${databaseId}">
@@ -54,7 +76,7 @@ const createTweetElement = function(tweet) {
       </header>
       <p>${content}</p>
       <footer>
-        <span>${datestamp}</span>
+        <span>${elapsedTime}  (${datestamp})</span>
         <i class="fa fa-heart fa-lg">
           <span>${likes || ""}</span></i>
         <i class="fa fa-retweet fa-lg"></i>
