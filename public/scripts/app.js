@@ -92,13 +92,13 @@ const createTweetElement = function(tweet) {
 const submitTweet = function(tweet) {
   $('h4.warning-text').empty();
 
-  if (tweet.length > 140) {
+  if (tweet.trim().length > 140) {
     $('<h4/>', {
       class: 'warning-text',
       text: `Please keep it under 140 characters ↑`
     }).appendTo('.new-tweet');
 
-  } else if (!tweet) {
+  } else if (!tweet || tweet.trim().length === 0) {
     $('<h4/>', {
       class: 'warning-text',
       text: 'Your tweet is empty 😿'
